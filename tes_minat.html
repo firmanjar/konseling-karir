@@ -1,0 +1,548 @@
+ <!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tes Minat Bakat</title>
+  <link rel="icon" type="image/png" href="img/Logo_ubhara.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+      body {
+        background-image: url("https://ubharajaya.ac.id/wp-content/uploads/2024/03/Pilihan-Foto-Gedung-Ubhara-Jaya-1024x680.jpg"); /* Ganti dengan gambar HD */
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+      }
+    .question-card {
+      background-color: white;
+      border-left: 4px solid #E78B48;
+    }
+    .result-card {
+      background: linear-gradient(135deg, #102E50 0%, #1e3a8a 100%);
+    }
+    .btn-primary {
+      background-color: #E78B48;
+    }
+    .btn-primary:hover {
+      background-color: #BE3D2A;
+    }
+    .fade-in {
+      animation: fadeIn 0.5s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body class="min-h-screen py-8">
+  <div class="max-w-4xl mx-auto px-4">
+    <!-- Header -->
+    <div class="bg-white rounded-xl shadow-lg p-6 text-center mb-8">
+      <h1 class="text-3xl font-bold text-[#102E50]">Tes Minat Bakat</h1>
+      <p class="text-gray-600 mt-2">Temukan potensi dan minat karir Anda melalui 20 pertanyaan berikut</p>
+    </div>
+
+    <!-- Test Container -->
+    <div id="testContainer">
+      <!-- Progress Bar -->
+      <div class="mb-6 bg-gray-200 rounded-full h-2.5">
+        <div id="progressBar" class="bg-[#E78B48] h-2.5 rounded-full" style="width: 0%"></div>
+      </div>
+      
+      <!-- Questions -->
+      <form id="testForm" class="space-y-6">
+        <!-- Questions will be inserted here by JavaScript -->
+      </form>
+
+      <!-- Submit Button -->
+      <div class="mt-8 text-center">
+        <button id="submitBtn" class="btn-primary text-white py-2 px-6 rounded-md font-medium">
+          Selesai Tes
+        </button>
+      </div>
+    </div>
+
+    <!-- Results Container (Initially Hidden) -->
+    <div id="resultsContainer" class="hidden">
+      <div class="result-card text-white rounded-xl shadow-2xl overflow-hidden mb-8 p-6 fade-in">
+        <h2 class="text-2xl font-bold mb-4 text-[#F5C45E]">Hasil Tes Minat Anda</h2>
+        <div id="testResult" class="space-y-4">
+          <!-- Result will be inserted here by JavaScript -->
+        </div>
+      </div>
+
+      <div class="result-card text-white rounded-xl shadow-2xl overflow-hidden mb-8 p-6 fade-in">
+        <h2 class="text-2xl font-bold mb-4 text-[#F5C45E]">Rekomendasi Karir</h2>
+        <div id="careerRecommendation" class="space-y-4">
+          <!-- Career recommendations will be inserted here by JavaScript -->
+        </div>
+      </div>
+
+      <!-- Test History -->
+      <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-8 fade-in">
+        <div class="p-6">
+          <h2 class="text-2xl font-bold text-[#102E50] mb-4">Riwayat Hasil Tes Terakhir</h2>
+          <div id="testHistory" class="space-y-4">
+            <!-- Test history will be inserted here by JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button id="retakeTestBtn" class="btn-primary text-white py-2 px-6 rounded-md font-medium">
+          Ambil Tes Lagi
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Questions data
+    const questions = [
+      {
+        id: 1,
+        text: "Saya lebih suka bekerja dengan angka dan rumus daripada dengan orang.",
+        category: "realistic"
+      },
+      {
+        id: 2,
+        text: "Saya senang membantu orang memecahkan masalah pribadi mereka.",
+        category: "social"
+      },
+      {
+        id: 3,
+        text: "Saya suka memimpin dan mempengaruhi orang lain.",
+        category: "enterprising"
+      },
+      {
+        id: 4,
+        text: "Saya senang bekerja dengan tangan dan alat-alat.",
+        category: "realistic"
+      },
+      {
+        id: 5,
+        text: "Saya suka menganalisis masalah dan mencari solusi logis.",
+        category: "investigative"
+      },
+      {
+        id: 6,
+        text: "Saya menikmati bekerja di lingkungan yang teratur dan terstruktur.",
+        category: "conventional"
+      },
+      {
+        id: 7,
+        text: "Saya suka mengekspresikan diri melalui seni, musik, atau tulisan.",
+        category: "artistic"
+      },
+      {
+        id: 8,
+        text: "Saya tertarik memahami bagaimana sesuatu bekerja.",
+        category: "investigative"
+      },
+      {
+        id: 9,
+        text: "Saya senang bekerja dalam tim untuk mencapai tujuan bersama.",
+        category: "social"
+      },
+      {
+        id: 10,
+        text: "Saya suka merencanakan dan mengorganisir acara atau proyek.",
+        category: "enterprising"
+      },
+      {
+        id: 11,
+        text: "Saya lebih suka bekerja dengan ide-ide abstrak daripada hal-hal praktis.",
+        category: "artistic"
+      },
+      {
+        id: 12,
+        text: "Saya menyukai pekerjaan yang membutuhkan ketelitian dan detail.",
+        category: "conventional"
+      },
+      {
+        id: 13,
+        text: "Saya senang bekerja di luar ruangan dengan alam.",
+        category: "realistic"
+      },
+      {
+        id: 14,
+        text: "Saya tertarik mempelajari penyebab penyakit dan cara penyembuhannya.",
+        category: "investigative"
+      },
+      {
+        id: 15,
+        text: "Saya suka menciptakan karya seni yang unik dan orisinal.",
+        category: "artistic"
+      },
+      {
+        id: 16,
+        text: "Saya senang bekerja dengan dokumen dan sistem yang terorganisir.",
+        category: "conventional"
+      },
+      {
+        id: 17,
+        text: "Saya suka membujuk orang untuk membeli produk atau ide.",
+        category: "enterprising"
+      },
+      {
+        id: 18,
+        text: "Saya menikmati mengajar atau melatih orang lain.",
+        category: "social"
+      },
+      {
+        id: 19,
+        text: "Saya tertarik dengan teknologi dan inovasi terbaru.",
+        category: "investigative"
+      },
+      {
+        id: 20,
+        text: "Saya suka bekerja dengan bahan-bahan alami seperti kayu, tanaman, atau tanah.",
+        category: "realistic"
+      }
+    ];
+
+    // Career recommendations based on interest types
+    const careerRecommendations = {
+      realistic: [
+        "Teknik Mesin",
+        "Arsitektur",
+        "Pilot",
+        "Teknisi Elektronik",
+        "Ahli Pertanian"
+      ],
+      investigative: [
+        "Dokter",
+        "Ilmuwan",
+        "Apoteker",
+        "Psikolog",
+        "Peneliti"
+      ],
+      artistic: [
+        "Desainer Grafis",
+        "Musisi",
+        "Penulis",
+        "Aktor",
+        "Fotografer"
+      ],
+      social: [
+        "Guru",
+        "Perawat",
+        "Konselor",
+        "Pekerja Sosial",
+        "HRD"
+      ],
+      enterprising: [
+        "Pengusaha",
+        "Marketing",
+        "Pengacara",
+        "Manajer",
+        "Sales"
+      ],
+      conventional: [
+        "Akuntan",
+        "Sekretaris",
+        "Analis Data",
+        "Pustakawan",
+        "Administrator"
+      ]
+    };
+
+    // Interest type descriptions
+    const interestDescriptions = {
+      realistic: "Anda memiliki minat tinggi pada kegiatan praktis, teknis, dan bekerja dengan alat atau mesin. Anda cenderung menyukai pekerjaan yang konkret dan menghasilkan produk nyata.",
+      investigative: "Anda memiliki minat tinggi pada kegiatan analitis, intelektual, dan penelitian. Anda menikmati memecahkan masalah kompleks dan memahami bagaimana sesuatu bekerja.",
+      artistic: "Anda memiliki minat tinggi pada kegiatan kreatif dan ekspresif. Anda menikmati bekerja dalam situasi yang tidak terstruktur dan menggunakan imajinasi Anda.",
+      social: "Anda memiliki minat tinggi pada kegiatan membantu, melatih, dan berinteraksi dengan orang lain. Anda menikmati bekerja dalam tim dan berkontribusi untuk kesejahteraan orang lain.",
+      enterprising: "Anda memiliki minat tinggi pada kegiatan memimpin, mempengaruhi, dan membujuk orang lain. Anda menikmati pekerjaan yang melibatkan inisiatif dan pengambilan risiko.",
+      conventional: "Anda memiliki minat tinggi pada kegiatan terstruktur dan terorganisir. Anda menikmati bekerja dengan data, dokumen, dan sistem yang jelas."
+    };
+
+    // DOM elements
+    const testForm = document.getElementById('testForm');
+    const testContainer = document.getElementById('testContainer');
+    const resultsContainer = document.getElementById('resultsContainer');
+    const testResult = document.getElementById('testResult');
+    const careerRecommendation = document.getElementById('careerRecommendation');
+    const testHistory = document.getElementById('testHistory');
+    const submitBtn = document.getElementById('submitBtn');
+    const retakeTestBtn = document.getElementById('retakeTestBtn');
+    const progressBar = document.getElementById('progressBar');
+
+    // Initialize the test
+    function initTest() {
+      // Clear previous answers if retaking test
+      testForm.innerHTML = '';
+      
+      // Create question elements
+      questions.forEach((question, index) => {
+        const questionDiv = document.createElement('div');
+        questionDiv.className = 'question-card p-6 rounded-lg shadow-md';
+        questionDiv.innerHTML = `
+          <h3 class="font-medium text-lg mb-4">Pertanyaan ${index + 1}: ${question.text}</h3>
+          <div class="space-y-3">
+            <div class="flex items-center">
+              <input type="radio" id="q${question.id}_1" name="q${question.id}" value="1" class="mr-3" required>
+              <label for="q${question.id}_1">Sangat Tidak Setuju</label>
+            </div>
+            <div class="flex items-center">
+              <input type="radio" id="q${question.id}_2" name="q${question.id}" value="2" class="mr-3">
+              <label for="q${question.id}_2">Tidak Setuju</label>
+            </div>
+            <div class="flex items-center">
+              <input type="radio" id="q${question.id}_3" name="q${question.id}" value="3" class="mr-3">
+              <label for="q${question.id}_3">Netral</label>
+            </div>
+            <div class="flex items-center">
+              <input type="radio" id="q${question.id}_4" name="q${question.id}" value="4" class="mr-3">
+              <label for="q${question.id}_4">Setuju</label>
+            </div>
+            <div class="flex items-center">
+              <input type="radio" id="q${question.id}_5" name="q${question.id}" value="5" class="mr-3">
+              <label for="q${question.id}_5">Sangat Setuju</label>
+            </div>
+          </div>
+        `;
+        testForm.appendChild(questionDiv);
+      });
+
+      // Update progress bar
+      updateProgressBar();
+      
+      // Show test container and hide results
+      testContainer.classList.remove('hidden');
+      resultsContainer.classList.add('hidden');
+    }
+
+    // Update progress bar based on answered questions
+    function updateProgressBar() {
+      const answered = document.querySelectorAll('input[type="radio"]:checked').length;
+      const total = questions.length;
+      const percentage = (answered / total) * 100;
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    // Calculate test results
+    function calculateResults() {
+      const scores = {
+        realistic: 0,
+        investigative: 0,
+        artistic: 0,
+        social: 0,
+        enterprising: 0,
+        conventional: 0
+      };
+      
+      // Calculate scores for each category
+      questions.forEach(question => {
+        const selectedOption = document.querySelector(`input[name="q${question.id}"]:checked`);
+        if (selectedOption) {
+          const score = parseInt(selectedOption.value);
+          scores[question.category] += score;
+        }
+      });
+      
+      // Find top 3 interest types
+      const sortedInterests = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
+      const topInterests = sortedInterests.slice(0, 3);
+      
+      // Save answers to localStorage
+      const answers = {};
+      questions.forEach(question => {
+        const selectedOption = document.querySelector(`input[name="q${question.id}"]:checked`);
+        if (selectedOption) {
+          answers[question.id] = selectedOption.value;
+        }
+      });
+      
+      return {
+        scores,
+        topInterests,
+        answers,
+        date: new Date().toLocaleString()
+      };
+    }
+
+    // Display results
+    function displayResults(results) {
+      // Display test result
+      testResult.innerHTML = '';
+      results.topInterests.forEach((interest, index) => {
+        const rank = ["Utama", "Kedua", "Ketiga"][index];
+        testResult.innerHTML += `
+          <div>
+            <h3 class="font-bold text-lg">Minat ${rank}: ${interest.toUpperCase()}</h3>
+            <p class="text-gray-300">${interestDescriptions[interest]}</p>
+            <p class="mt-2">Skor: ${results.scores[interest]}</p>
+          </div>
+        `;
+      });
+      
+      // Display career recommendations
+      careerRecommendation.innerHTML = '';
+      results.topInterests.forEach(interest => {
+        careerRecommendation.innerHTML += `
+          <div>
+            <h3 class="font-bold text-lg">Rekomendasi untuk Minat ${interest.toUpperCase()}:</h3>
+            <ul class="list-disc list-inside text-gray-300 ml-4">
+              ${careerRecommendations[interest].map(job => `<li>${job}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      });
+      
+      // Save to history (replace previous result)
+      saveToHistory(results);
+      
+      // Display history (only show latest result)
+      displayHistory();
+      
+      // Show results and hide test
+      testContainer.classList.add('hidden');
+      resultsContainer.classList.remove('hidden');
+    }
+
+    // Save results to localStorage (only keep the latest result)
+    function saveToHistory(results) {
+      // Only keep the latest result by replacing the entire history
+      localStorage.setItem('interestTestHistory', JSON.stringify([results]));
+      
+      // Also save the answers separately for easy retrieval
+      localStorage.setItem('lastTestAnswers', JSON.stringify(results.answers));
+    }
+
+    // Display test history (only show latest result)
+    function displayHistory() {
+      const history = JSON.parse(localStorage.getItem('interestTestHistory')) || [];
+      testHistory.innerHTML = '';
+      
+      if (history.length === 0) {
+        testHistory.innerHTML = '<p class="text-gray-600">Belum ada riwayat tes</p>';
+        return;
+      }
+      
+      // Only show the latest result (first item in array)
+      const latestResult = history[0];
+      const testDiv = document.createElement('div');
+      testDiv.className = 'border border-gray-200 rounded-lg p-4';
+      testDiv.innerHTML = `
+        <h3 class="font-bold">Tes pada ${latestResult.date}</h3>
+        <p class="text-sm text-gray-600 mb-2">Minat Utama: ${latestResult.topInterests[0].toUpperCase()}</p>
+        <button onclick="viewLatestResult()" class="text-[#E78B48] hover:underline text-sm">
+          Lihat Detail Hasil
+        </button>
+      `;
+      testHistory.appendChild(testDiv);
+    }
+
+    // Load previous answers into the form
+    function loadPreviousAnswers() {
+      const lastAnswers = JSON.parse(localStorage.getItem('lastTestAnswers'));
+      if (!lastAnswers) return;
+      
+      Object.keys(lastAnswers).forEach(questionId => {
+        const value = lastAnswers[questionId];
+        const input = document.querySelector(`input[name="q${questionId}"][value="${value}"]`);
+        if (input) {
+          input.checked = true;
+        }
+      });
+      
+      updateProgressBar();
+    }
+
+    // View latest test result
+    window.viewLatestResult = function() {
+      const history = JSON.parse(localStorage.getItem('interestTestHistory')) || [];
+      if (history.length > 0) {
+        const result = history[0];
+        
+        // Display the selected result
+        testResult.innerHTML = '';
+        result.topInterests.forEach((interest, i) => {
+          const rank = ["Utama", "Kedua", "Ketiga"][i];
+          testResult.innerHTML += `
+            <div>
+              <h3 class="font-bold text-lg">Minat ${rank}: ${interest.toUpperCase()}</h3>
+              <p class="text-gray-300">${interestDescriptions[interest]}</p>
+              <p class="mt-2">Skor: ${result.scores[interest]}</p>
+            </div>
+          `;
+        });
+        
+        // Display career recommendations
+        careerRecommendation.innerHTML = '';
+        result.topInterests.forEach(interest => {
+          careerRecommendation.innerHTML += `
+            <div>
+              <h3 class="font-bold text-lg">Rekomendasi untuk Minat ${interest.toUpperCase()}:</h3>
+              <ul class="list-disc list-inside text-gray-300 ml-4">
+                ${careerRecommendations[interest].map(job => `<li>${job}</li>`).join('')}
+              </ul>
+            </div>
+          `;
+        });
+        
+        // Scroll to results
+        resultsContainer.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
+
+    // Event listeners
+    testForm.addEventListener('change', updateProgressBar);
+    
+    submitBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Check if all questions are answered
+      const answeredQuestions = document.querySelectorAll('input[type="radio"]:checked').length;
+      if (answeredQuestions < questions.length) {
+        alert('Silakan jawab semua pertanyaan sebelum menyelesaikan tes');
+        return;
+      }
+      
+      // Disable all inputs
+      const allInputs = document.querySelectorAll('input[type="radio"]');
+      allInputs.forEach(input => input.disabled = true);
+      
+      // Calculate and display results
+      const results = calculateResults();
+      displayResults(results);
+    });
+    
+    retakeTestBtn.addEventListener('click', initTest);
+
+    // Initialize the test when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check if there's a completed test in localStorage
+      const history = JSON.parse(localStorage.getItem('interestTestHistory')) || [];
+      
+      if (history.length > 0) {
+        // Check if we should show the test form with answers or results
+        const showResults = localStorage.getItem('showResultsOnLoad');
+        
+        if (showResults === 'true') {
+          // Show the latest results
+          displayResults(history[0]);
+          localStorage.removeItem('showResultsOnLoad');
+        } else {
+          // Initialize test form with previous answers
+          initTest();
+          loadPreviousAnswers();
+        }
+      } else {
+        // Initialize new test
+        initTest();
+      }
+    });
+
+    // Before page unload, set flag to show results if test was completed
+    window.addEventListener('beforeunload', function() {
+      if (resultsContainer.classList.contains('hidden') === false) {
+        localStorage.setItem('showResultsOnLoad', 'true');
+      }
+    });
+  </script>
+</body>
+</html>

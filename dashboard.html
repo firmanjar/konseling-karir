@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="icon" type="image/png" href="img/Logo_ubhara.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        background-image: url("https://ubharajaya.ac.id/wp-content/uploads/2024/03/Pilihan-Foto-Gedung-Ubhara-Jaya-1024x680.jpg"); /* Ganti dengan gambar HD */
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed; 
+        background-repeat: no-repeat;
+      }
+      .profile-card {
+        background: linear-gradient(135deg, #102e50 50%, #1e3a8a 80%);
+      }
+      .text-accent {
+        color: #f5c45e;
+      }
+      .btn-primary {
+        background-color: #e78b48;
+      }
+      .btn-primary:hover {
+        background-color: #be3d2a;
+      }
+      .btn-secondary {
+        background-color: #3b82f6;
+      }
+      .btn-secondary:hover {
+        background-color: #2563eb;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-[#102E50] text-white shadow-lg">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="flex justify-between items-center py-4">
+          <div class="flex items-center space-x-4">
+            <img src="img/Logo_ubhara.png" alt="Logo Ubhara" class="h-10" />
+            <span class="font-semibold text-xl">Sistem Dashboard</span>
+          </div>
+          <div>
+            <button
+              id="logoutBtn"
+              class="btn-primary py-2 px-4 rounded-md font-medium">
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-8">
+      <!-- Profile Card -->
+      <div
+        class="profile-card rounded-xl shadow-2xl overflow-hidden mb-8 text-white">
+        <div class="p-6 md:p-8">
+          <div class="flex flex-col md:flex-row items-start gap-8">
+            <!-- Profile Photo -->
+            <div class="w-full md:w-1/3 text-center">
+              <div class="relative inline-block">
+                <img
+                  id="profilePhoto"
+                  src="img/default-profile.jpg"
+                  alt="Profile Photo"
+                  class="w-48 h-48 rounded-full object-cover border-4 border-[#F5C45E]" />
+                <input
+                  type="file"
+                  id="photoInput"
+                  accept="image/*"
+                  class="hidden" />
+                <button
+                  id="changePhotoBtn"
+                  class="btn-primary mt-4 py-2 px-4 rounded-md font-medium hidden">
+                  Ganti Foto
+                </button>
+              </div>
+            </div>
+
+            <!-- Profile Info -->
+            <div class="w-full md:w-2/3">
+              <div id="profileView">
+                <h2
+                  id="profileName"
+                  class="text-2xl font-bold mb-2 text-[#F5C45E]"></h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                  <div>
+                    <p class="text-sm text-gray-300">NIM</p>
+                    <p id="profileNim" class="font-medium"></p>
+                  </div>
+                  <div>
+                    <p class="text-sm text-gray-300">Email</p>
+                    <p id="profileEmail" class="font-medium"></p>
+                  </div>
+                  <div>
+                    <p class="text-sm text-gray-300">Nomor Telepon</p>
+                    <p id="profilePhone" class="font-medium"></p>
+                  </div>
+                  <div>
+                    <p class="text-sm text-gray-300">Fakultas</p>
+                    <p id="profileFaculty" class="font-medium"></p>
+                  </div>
+                  <div>
+                    <p class="text-sm text-gray-300">Status</p>
+                    <p id="profileStatus" class="font-medium"></p>
+                  </div>
+                </div>
+                <button
+                  id="editProfileBtn"
+                  class="btn-primary py-2 px-6 rounded-md font-medium">
+                  Edit Profil
+                </button>
+              </div>
+
+              <!-- Edit Form (hidden by default) -->
+              <form id="profileEditForm" class="hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                  <div>
+                    <label class="block text-sm text-gray-300 mb-1"
+                      >Nama Lengkap</label
+                    >
+                    <input
+                      id="editName"
+                      type="text"
+                      class="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-md text-white" />
+                  </div>
+                  <div>
+                    <label class="block text-sm text-gray-300 mb-1">NIM</label>
+                    <input
+                      id="editNim"
+                      type="text"
+                      class="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-md text-white"
+                      readonly />
+                  </div>
+                  <div>
+                    <label class="block text-sm text-gray-300 mb-1"
+                      >Email</label
+                    >
+                    <input
+                      id="editEmail"
+                      type="email"
+                      class="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-md text-white"
+                      readonly />
+                  </div>
+                  <div>
+                    <label class="block text-sm text-gray-300 mb-1"
+                      >Nomor Telepon</label
+                    >
+                    <input
+                      id="editPhone"
+                      type="tel"
+                      class="w-full px-3 py-2 bg-black/80 border border-black/80 rounded-md text-white" />
+                  </div>
+                  <div>
+                    <label class="block text-sm text-gray-300 mb-1"
+                      >Fakultas</label
+                    >
+                    <select
+                      id="editFaculty"
+                      class="w-full px-3 py-2 bg-black/80 border border-white/20 rounded-md text-white">
+                      <option value="Fakultas Ilmu Komputer">
+                        Fakultas Ilmu Komputer
+                      </option>
+                      <option value="Fakultas Ekonomi">Fakultas Ekonomi</option>
+                      <option value="Fakultas Hukum">Fakultas Hukum</option>
+                      <option value="Fakultas Teknik">Fakultas Teknik</option>
+                      <option value="Fakultas Psikologi">
+                        Fakultas Psikologi
+                      </option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-sm text-gray-300 mb-1"
+                      >Status</label
+                    >
+                    <select
+                      id="editStatus"
+                      class="w-full px-3 py-2 bg-black/80 border border-white/20 rounded-md text-white">
+                      <option value="Aktif">Aktif</option>
+                      <option value="Alumni">Alumni</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="flex space-x-4">
+                  <button
+                    type="submit"
+                    class="btn-primary py-2 px-6 rounded-md font-medium">
+                    Simpan Perubahan
+                  </button>
+                  <button
+                    type="button"
+                    id="cancelEditBtn"
+                    class="btn-secondary py-2 px-6 rounded-md font-medium">
+                    Batal
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- fitur konseling -->
+      <div class="bg-white/80 rounded-lg p-6 mb-8">
+        <h2 class="text-2xl font-bold text-[#102E50] mb-8 text-center">
+          Fitur Konseling
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Tes Minat Card -->
+          <a
+            href="tes_minat.html"
+            class="border border-gray-200 bg-white/80 rounded-lg p-6 hover:border-[#102E50] transition-colors text-center group">
+            <div class="flex justify-center mb-4">
+              <div
+                class="bg-[#102E50]/10 p-4 rounded-full group-hover:bg-[#102E50]/20 transition-colors">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-10 w-10 text-[#102E50]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+              </div>
+            </div>
+            <h3 class="font-semibold text-lg mb-2 text-[#102E50]">Tes Minat</h3>
+            <p class="text-gray-600 text-sm">
+              Isi tes minat untuk mendapatkan rekomendasi karir yang sesuai
+              dengan kepribadian Anda
+            </p>
+          </a>
+
+          <!-- Konseling Online Card -->
+          <a
+            href="konseling_online.html"
+            class="border border-gray-200 bg-white/80 rounded-lg p-6 hover:border-[#102E50] transition-colors text-center group">
+            <div class="flex justify-center mb-4">
+              <div
+                class="bg-[#102E50]/10 p-4 rounded-full group-hover:bg-[#102E50]/20 transition-colors">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-10 w-10 text-[#102E50]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+              </div>
+            </div>
+            <h3 class="font-semibold text-lg mb-2 text-[#102E50]">
+              Konseling Online
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Pilih jadwal dan ikuti sesi konseling online dengan konselor
+              profesional
+            </p>
+          </a>
+
+          <!-- Artikel Karir Card -->
+          <a
+            href="artikel_karir.html"
+            class="border border-gray-200 bg-white/80 rounded-lg p-6 hover:border-[#102E50] transition-colors text-center group">
+            <div class="flex justify-center mb-4">
+              <div
+                class="bg-[#102E50]/10 p-4 rounded-full group-hover:bg-[#102E50]/20 transition-colors">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-10 w-10 text-[#102E50]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                </svg>
+              </div>
+            </div>
+            <h3 class="font-semibold text-lg mb-2 text-[#102E50]">
+              Artikel Karir
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Temukan artikel terbaru tentang pengembangan karir dan tips
+              profesional
+            </p>
+          </a>
+        </div>
+      </div>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-[#102E50]/90 text-white py-4 shadow-inner">
+      <div class="max-w-6xl mx-auto px-4">
+        <div
+          class="flex flex-col md:flex-row justify-between items-center gap-3 text-sm">
+          <!-- Kiri: Info Kampus -->
+          <div class="text-center md:text-left">
+            <h4 class="font-semibold">Universitas Bhayangkara Jakarta Raya</h4>
+            <p class="text-white/70 text-xs">
+              Jl. Raya Bekasi No.KM.18, Jakarta Timur, Indonesia
+            </p>
+          </div>
+
+          <!-- Kanan: Hak Cipta -->
+          <div class="text-center md:text-right text-xs text-white/60">
+            © 2023 Universitas Bhayangkara Jakarta Raya<br class="md:hidden" />
+            Hak cipta dilindungi.
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Check if user is logged in
+      document.addEventListener("DOMContentLoaded", () => {
+        const loggedInUser = sessionStorage.getItem("loggedInUser");
+        if (!loggedInUser) {
+          window.location.href = "login.html";
+          return;
+        }
+
+        const user = JSON.parse(loggedInUser);
+        const users = JSON.parse(localStorage.getItem("users")) || [];
+        const userData =
+          users.find((u) => u.email === user.email || u.nim === user.nim) || {};
+
+        // Display profile data
+        document.getElementById("profileName").textContent =
+          userData.fullname || "Nama tidak tersedia";
+        document.getElementById("profileNim").textContent =
+          userData.nim || "NIM tidak tersedia";
+        document.getElementById("profileEmail").textContent =
+          userData.email || "Email tidak tersedia";
+        document.getElementById("profilePhone").textContent =
+          userData.phone || "Nomor tidak tersedia";
+        document.getElementById("profileFaculty").textContent =
+          userData.faculty || "Fakultas belum dipilih";
+        document.getElementById("profileStatus").textContent =
+          userData.status || "Status tidak diketahui";
+
+        // Set edit form values
+        document.getElementById("editName").value = userData.fullname || "";
+        document.getElementById("editNim").value = userData.nim || "";
+        document.getElementById("editEmail").value = userData.email || "";
+        document.getElementById("editPhone").value = userData.phone || "";
+        document.getElementById("editFaculty").value =
+          userData.faculty || "Fakultas Ilmu Komputer";
+        document.getElementById("editStatus").value =
+          userData.status || "Aktif";
+
+        // Load profile photo if exists
+        if (userData.photo) {
+          document.getElementById("profilePhoto").src = userData.photo;
+        }
+      });
+
+      // Edit Profile Button
+      document
+        .getElementById("editProfileBtn")
+        .addEventListener("click", () => {
+          document.getElementById("profileView").classList.add("hidden");
+          document.getElementById("profileEditForm").classList.remove("hidden");
+          document.getElementById("changePhotoBtn").classList.remove("hidden");
+        });
+
+      // Cancel Edit Button
+      document.getElementById("cancelEditBtn").addEventListener("click", () => {
+        document.getElementById("profileView").classList.remove("hidden");
+        document.getElementById("profileEditForm").classList.add("hidden");
+        document.getElementById("changePhotoBtn").classList.add("hidden");
+      });
+
+      // Save Profile Changes
+      document
+        .getElementById("profileEditForm")
+        .addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          const users = JSON.parse(localStorage.getItem("users")) || [];
+          const loggedInUser = JSON.parse(
+            sessionStorage.getItem("loggedInUser")
+          );
+
+          // Find user index
+          const userIndex = users.findIndex(
+            (u) => u.email === loggedInUser.email || u.nim === loggedInUser.nim
+          );
+
+          if (userIndex !== -1) {
+            // Update user data
+            users[userIndex] = {
+              ...users[userIndex],
+              fullname: document.getElementById("editName").value,
+              phone: document.getElementById("editPhone").value,
+              faculty: document.getElementById("editFaculty").value,
+              status: document.getElementById("editStatus").value,
+            };
+
+            // Save to localStorage
+            localStorage.setItem("users", JSON.stringify(users));
+
+            // Update session
+            sessionStorage.setItem(
+              "loggedInUser",
+              JSON.stringify({
+                ...loggedInUser,
+                fullname: document.getElementById("editName").value,
+              })
+            );
+
+            // Reload profile view
+            location.reload();
+          }
+        });
+
+      // Change Profile Photo
+      document
+        .getElementById("changePhotoBtn")
+        .addEventListener("click", () => {
+          document.getElementById("photoInput").click();
+        });
+
+      document.getElementById("photoInput").addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            const photoUrl = event.target.result;
+            document.getElementById("profilePhoto").src = photoUrl;
+
+            // Save to user data
+            const users = JSON.parse(localStorage.getItem("users")) || [];
+            const loggedInUser = JSON.parse(
+              sessionStorage.getItem("loggedInUser")
+            );
+            const userIndex = users.findIndex(
+              (u) =>
+                u.email === loggedInUser.email || u.nim === loggedInUser.nim
+            );
+
+            if (userIndex !== -1) {
+              users[userIndex].photo = photoUrl;
+              localStorage.setItem("users", JSON.stringify(users));
+            }
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      // Logout Button
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        sessionStorage.removeItem("loggedInUser");
+        window.location.href = "index.html";
+      });
+    </script>
+  </body>
+</html>

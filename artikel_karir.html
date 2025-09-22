@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Artikel Rekomendasi Karir</title>
+    <link rel="icon" type="image/png" href="img/Logo_ubhara.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        background-image: url("https://i.pinimg.com/736x/2c/b4/ec/2cb4ec33e4deb347eae1eccf2a77ae97.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+      }
+      .article-card {
+        background-color: white;
+        border-left: 4px solid #e78b48;
+        transition: transform 0.3s ease;
+      }
+      .article-card:hover {
+        transform: translateY(-5px);
+      }
+      .category-badge {
+        background-color: #102e50;
+      }
+      .btn-primary {
+        background-color: #e78b48;
+      }
+      .btn-primary:hover {
+        background-color: #be3d2a;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen py-8">
+    <div class="max-w-6xl mx-auto px-4">
+      <!-- Header -->
+      <div class="bg-white rounded-xl shadow-lg p-6 text-center mb-8">
+        <h1 class="text-3xl font-bold text-[#102E50]">
+          Artikel Rekomendasi Karir
+        </h1>
+        <p class="text-gray-600 mt-2">
+          Temukan artikel inspiratif seputar karir berdasarkan minat dan bakat
+          Anda
+        </p>
+        <a
+          href="tes_minat.html"
+          class="btn-primary text-white py-2 px-6 rounded-md font-medium inline-block mt-4">
+          Ambil Tes Minat Bakat
+        </a>
+      </div>
+
+      <!-- Filter Section -->
+      <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+        <h2 class="text-xl font-bold text-[#102E50] mb-4">Filter Artikel</h2>
+        <div class="flex flex-wrap gap-3">
+          <button
+            data-category="all"
+            class="category-filter btn-primary text-white py-1 px-4 rounded-md text-sm font-medium active">
+            Semua Kategori
+          </button>
+          <button
+            data-category="realistic"
+            class="category-filter category-badge text-white py-1 px-4 rounded-md text-sm font-medium">
+            Realistik
+          </button>
+          <button
+            data-category="investigative"
+            class="category-filter category-badge text-white py-1 px-4 rounded-md text-sm font-medium">
+            Investigatif
+          </button>
+          <button
+            data-category="artistic"
+            class="category-filter category-badge text-white py-1 px-4 rounded-md text-sm font-medium">
+            Artistik
+          </button>
+          <button
+            data-category="social"
+            class="category-filter category-badge text-white py-1 px-4 rounded-md text-sm font-medium">
+            Sosial
+          </button>
+          <button
+            data-category="enterprising"
+            class="category-filter category-badge text-white py-1 px-4 rounded-md text-sm font-medium">
+            Enterprising
+          </button>
+          <button
+            data-category="conventional"
+            class="category-filter category-badge text-white py-1 px-4 rounded-md text-sm font-medium">
+            Konvensional
+          </button>
+        </div>
+      </div>
+
+      <!-- Recommended Articles (Based on Test Results) -->
+      <div id="recommendedArticles" class="mb-12">
+        <h2 class="text-2xl font-bold text-[#102E50] mb-6">
+          Rekomendasi Untuk Anda
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Articles will be loaded here by JavaScript -->
+        </div>
+      </div>
+
+      <!-- All Articles -->
+      <div id="allArticles">
+        <h2 class="text-2xl font-bold text-[#102E50] mb-6">
+          Semua Artikel Karir
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Article 1: Realistic -->
+          <div
+            class="article-card p-6 rounded-lg shadow-md"
+            data-category="realistic">
+            <span
+              class="category-badge text-white py-1 px-3 rounded-full text-xs font-medium mb-3 inline-block"
+              >Realistik</span
+            >
+            <h3 class="font-bold text-xl mb-3">
+              Prospek Karir di Bidang Teknik Mesin di Era Industri 4.0
+            </h3>
+            <p class="text-gray-600 mb-4">
+              Temukan bagaimana revolusi industri 4.0 membuka peluang baru bagi
+              lulusan teknik mesin dengan skill digital...
+            </p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-500">5 menit baca</span>
+              <a
+                href="https://example.com/artikel-teknik-mesin"
+                target="_blank"
+                class="text-[#E78B48] font-medium"
+                >Baca Selengkapnya →</a
+              >
+            </div>
+          </div>
+
+          <!-- Article 2: Investigative -->
+          <div
+            class="article-card p-6 rounded-lg shadow-md"
+            data-category="investigative">
+            <span
+              class="category-badge text-white py-1 px-3 rounded-full text-xs font-medium mb-3 inline-block"
+              >Investigatif</span
+            >
+            <h3 class="font-bold text-xl mb-3">
+              Menjadi Peneliti di Indonesia: Tantangan dan Peluang
+            </h3>
+            <p class="text-gray-600 mb-4">
+              Bagaimana prospek karir sebagai peneliti di Indonesia? Artikel ini
+              mengupas tuntas jalan menuju karier di dunia penelitian...
+            </p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-500">8 menit baca</span>
+              <a
+                href="https://example.com/artikel-peneliti"
+                target="_blank"
+                class="text-[#E78B48] font-medium"
+                >Baca Selengkapnya →</a
+              >
+            </div>
+          </div>
+
+          <!-- Article 3: Artistic -->
+          <div
+            class="article-card p-6 rounded-lg shadow-md"
+            data-category="artistic">
+            <span
+              class="category-badge text-white py-1 px-3 rounded-full text-xs font-medium mb-3 inline-block"
+              >Artistik</span
+            >
+            <h3 class="font-bold text-xl mb-3">
+              Membangun Portofolio Kreatif untuk Desainer Pemula
+            </h3>
+            <p class="text-gray-600 mb-4">
+              Tips dan trik membangun portofolio yang menarik bagi desainer
+              grafis pemula untuk memulai karir di industri kreatif...
+            </p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-500">6 menit baca</span>
+              <a
+                href="https://example.com/artikel-desainer"
+                target="_blank"
+                class="text-[#E78B48] font-medium"
+                >Baca Selengkapnya →</a
+              >
+            </div>
+          </div>
+
+          <!-- Article 4: Social -->
+          <div
+            class="article-card p-6 rounded-lg shadow-md"
+            data-category="social">
+            <span
+              class="category-badge text-white py-1 px-3 rounded-full text-xs font-medium mb-3 inline-block"
+              >Sosial</span
+            >
+            <h3 class="font-bold text-xl mb-3">
+              Strategi Menjadi Guru Inspiratif di Era Digital
+            </h3>
+            <p class="text-gray-600 mb-4">
+              Bagaimana menjadi pendidik yang relevan dengan kebutuhan generasi
+              Z dan Alpha di tengah pesatnya perkembangan teknologi...
+            </p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-500">7 menit baca</span>
+              <a
+                href="https://example.com/artikel-guru"
+                target="_blank"
+                class="text-[#E78B48] font-medium"
+                >Baca Selengkapnya →</a
+              >
+            </div>
+          </div>
+
+          <!-- Article 5: Enterprising -->
+          <div
+            class="article-card p-6 rounded-lg shadow-md"
+            data-category="enterprising">
+            <span
+              class="category-badge text-white py-1 px-3 rounded-full text-xs font-medium mb-3 inline-block"
+              >Enterprising</span
+            >
+            <h3 class="font-bold text-xl mb-3">
+              Memulai Startup di Usia Muda: Kisah Sukses dan Pelajaran
+            </h3>
+            <p class="text-gray-600 mb-4">
+              Belajar dari pengalaman founder startup sukses di Indonesia dan
+              tips menghadapi tantangan berwirausaha di usia muda...
+            </p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-500">10 menit baca</span>
+              <a
+                href="https://example.com/artikel-startup"
+                target="_blank"
+                class="text-[#E78B48] font-medium"
+                >Baca Selengkapnya →</a
+              >
+            </div>
+          </div>
+
+          <!-- Article 6: Conventional -->
+          <div
+            class="article-card p-6 rounded-lg shadow-md"
+            data-category="conventional">
+            <span
+              class="category-badge text-white py-1 px-3 rounded-full text-xs font-medium mb-3 inline-block"
+              >Konvensional</span
+            >
+            <h3 class="font-bold text-xl mb-3">
+              Sertifikasi Profesi untuk Akuntan: Panduan Lengkap
+            </h3>
+            <p class="text-gray-600 mb-4">
+              Jenis-jenis sertifikasi akuntansi yang diakui secara internasional
+              dan bagaimana mempersiapkan diri untuk mendapatkannya...
+            </p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-500">9 menit baca</span>
+              <a
+                href="https://example.com/artikel-akuntan"
+                target="_blank"
+                class="text-[#E78B48] font-medium"
+                >Baca Selengkapnya →</a
+              >
+            </div>
+          </div>
+
+          <!-- Article 7: Realistic -->
+          <div
+            class="article-card p-6 rounded-lg shadow-md"
+            data-category="realistic">
+            <span
+              class="category-badge text-white py-1 px-3 rounded-full text-xs font-medium mb-3 inline-block"
+              >Realistik</span
+            >
+            <h3 class="font-bold text-xl mb-3">
+              Keterampilan yang Dibutuhkan untuk Menjadi Teknisi Profesional
+            </h3>
+            <p class="text-gray-600 mb-4">
+              Selain kemampuan teknis, apa saja soft skill yang perlu dimiliki
+              oleh seorang teknisi untuk berkembang di kariernya...
+            </p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-500">5 menit baca</span>
+              <a
+                href="https://example.com/artikel-teknisi"
+                target="_blank"
+                class="text-[#E78B48] font-medium"
+                >Baca Selengkapnya →</a
+              >
+            </div>
+          </div>
+
+          <!-- Article 8: Investigative -->
+          <div
+            class="article-card p-6 rounded-lg shadow-md"
+            data-category="investigative">
+            <span
+              class="category-badge text-white py-1 px-3 rounded-full text-xs font-medium mb-3 inline-block"
+              >Investigatif</span
+            >
+            <h3 class="font-bold text-xl mb-3">
+              Peran Data Scientist di Berbagai Industri
+            </h3>
+            <p class="text-gray-600 mb-4">
+              Bagaimana profesi data scientist diterapkan di berbagai sektor
+              industri dan skill apa saja yang dibutuhkan untuk masing-masing...
+            </p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-500">8 menit baca</span>
+              <a
+                href="https://example.com/artikel-data-scientist"
+                target="_blank"
+                class="text-[#E78B48] font-medium"
+                >Baca Selengkapnya →</a
+              >
+            </div>
+          </div>
+
+          <!-- Article 9: Artistic -->
+          <div
+            class="article-card p-6 rounded-lg shadow-md"
+            data-category="artistic">
+            <span
+              class="category-badge text-white py-1 px-3 rounded-full text-xs font-medium mb-3 inline-block"
+              >Artistik</span
+            >
+            <h3 class="font-bold text-xl mb-3">
+              Mengembangkan Karier sebagai Konten Kreator
+            </h3>
+            <p class="text-gray-600 mb-4">
+              Strategi membangun personal brand dan monetisasi konten di
+              berbagai platform digital untuk kreator pemula...
+            </p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-500">7 menit baca</span>
+              <a
+                href="https://example.com/artikel-kreator"
+                target="_blank"
+                class="text-[#E78B48] font-medium"
+                >Baca Selengkapnya →</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // DOM elements
+      const recommendedArticles = document.getElementById(
+        "recommendedArticles"
+      );
+      const allArticles = document.getElementById("allArticles");
+      const categoryFilters = document.querySelectorAll(".category-filter");
+
+      // Career categories mapping
+      const categoryMapping = {
+        realistic: "Realistik",
+        investigative: "Investigatif",
+        artistic: "Artistik",
+        social: "Sosial",
+        enterprising: "Enterprising",
+        conventional: "Konvensional",
+      };
+
+      // Load recommended articles based on test results
+      function loadRecommendedArticles() {
+        const history =
+          JSON.parse(localStorage.getItem("interestTestHistory")) || [];
+
+        if (history.length === 0) {
+          recommendedArticles.innerHTML = `
+          <h2 class="text-2xl font-bold text-[#102E50]\ mb-6">Rekomendasi Untuk Anda</h2>
+          <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+            <p class="text-gray-600 mb-4">Anda belum mengikuti tes minat bakat. Ambil tes terlebih dahulu untuk mendapatkan rekomendasi artikel yang sesuai dengan minat Anda.</p>
+            <a href="tes_minat.html" class="btn-primary text-white py-2 px-6 rounded-md font-medium inline-block">
+              Ambil Tes Minat Bakat
+            </a>
+          </div>
+        `;
+          return;
+        }
+
+        const topInterests = history[0].topInterests;
+        const articlesContainer = recommendedArticles.querySelector(".grid");
+        articlesContainer.innerHTML = "";
+
+        // Find articles matching top interests
+        const articles = document.querySelectorAll(".article-card");
+        let recommendedCount = 0;
+
+        articles.forEach((article) => {
+          const category = article.getAttribute("data-category");
+          if (topInterests.includes(category) && recommendedCount < 3) {
+            articlesContainer.appendChild(article.cloneNode(true));
+            recommendedCount++;
+          }
+        });
+
+        // If no articles found, show message
+        if (recommendedCount === 0) {
+          articlesContainer.innerHTML = `
+          <div class="bg-white rounded-xl shadow-lg p-6 col-span-full text-center">
+            <p class="text-gray-600">Tidak ada artikel yang sesuai dengan minat utama Anda saat ini. Silakan cek kembali nanti.</p>
+          </div>
+        `;
+        }
+      }
+
+      // Filter articles by category
+      function filterArticles(category) {
+        const articles = document.querySelectorAll(".article-card");
+
+        articles.forEach((article) => {
+          if (
+            category === "all" ||
+            article.getAttribute("data-category") === category
+          ) {
+            article.style.display = "block";
+          } else {
+            article.style.display = "none";
+          }
+        });
+
+        // Update active filter button
+        categoryFilters.forEach((button) => {
+          if (button.getAttribute("data-category") === category) {
+            button.classList.add("active");
+            button.classList.add("btn-primary");
+            button.classList.remove("category-badge");
+          } else {
+            button.classList.remove("active");
+            button.classList.remove("btn-primary");
+            button.classList.add("category-badge");
+          }
+        });
+      }
+
+      // Initialize the page
+      document.addEventListener("DOMContentLoaded", function () {
+        // Load recommended articles
+        loadRecommendedArticles();
+
+        // Set up filter buttons
+        categoryFilters.forEach((button) => {
+          button.addEventListener("click", function () {
+            const category = this.getAttribute("data-category");
+            filterArticles(category);
+          });
+        });
+
+        // Show all articles by default
+        filterArticles("all");
+      });
+    </script>
+  </body>
+</html>

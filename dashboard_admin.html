@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Manajemen Jadwal</title>
+    <link rel="icon" type="image/png" href="img/Logo_ubhara.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+      body {
+        background-image: url("https://ubharajaya.ac.id/wp-content/uploads/2024/03/Pilihan-Foto-Gedung-Ubhara-Jaya-1024x680.jpg"); /* Ganti dengan gambar HD */
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+      }
+      .card-gradient {
+        background: linear-gradient(135deg, #102e50 0%, #1e3a8a 100%);
+      }
+      .text-accent {
+        color: #f5c45e;
+      }
+      .btn-primary {
+        background-color: #e78b48;
+      }
+      .btn-primary:hover {
+        background-color: #be3d2a;
+      }
+      .btn-secondary {
+        background-color: #3b82f6;
+      }
+      .btn-secondary:hover {
+        background-color: #2563eb;
+      }
+      .btn-danger {
+        background-color: #ef4444;
+      }
+      .btn-danger:hover {
+        background-color: #dc2626;
+      }
+      .btn-edit {
+        background-color: #3b82f6;
+      }
+      .btn-edit:hover {
+        background-color: #2563eb;
+      }
+      .save-text,
+      .edit-text {
+        display: inline-block;
+      }
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-[#102E50] text-white shadow-lg">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-between items-center py-4">
+          <div class="flex items-center space-x-4">
+            <img src="img/Logo_ubhara.png" alt="Logo Ubhara" class="h-10" />
+            <span class="font-semibold text-xl">Admin Dashboard</span>
+          </div>
+          <div>
+            <button
+              id="logoutBtn"
+              class="btn-primary py-2 px-4 rounded-md font-medium">
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-8">
+      <!-- Daftar Pembimbing -->
+      <div class="mb-12">
+        <h2
+          class="bg-white rounded-xl shadow-lg p-6 text-2xl font-semibold text-[#102E50] mb-6">
+          Daftar Pembimbing
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Pembimbing 1 -->
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="card-gradient p-6 text-white">
+              <div class="flex items-center space-x-4">
+                <img
+                  src="https://randomuser.me/api/portraits/women/65.jpg"
+                  alt="Pembimbing 1"
+                  class="w-16 h-16 rounded-full border-2 border-[#F5C45E]" />
+                <div>
+                  <h3 class="font-bold text-lg">Dr. Sarah Wijaya, M.Psi.</h3>
+                  <p class="text-sm opacity-80">Psikolog Klinis</p>
+                </div>
+              </div>
+            </div>
+            <div class="p-6">
+              <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1"
+                  >Link GMeet</label
+                >
+                <input
+                  type="text"
+                  id="link-pembimbing1"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  placeholder="https://meet.google.com/xxx-yyyy-zzz" />
+              </div>
+              <div class="flex space-x-2">
+                <button
+                  class="btn-primary py-2 px-4 rounded-md font-medium w-full save-link"
+                  data-pembimbing="1">
+                  <i class="fas fa-save mr-2"></i>
+                  <span class="save-text">Simpan Link</span>
+                  <span class="edit-text hidden">Ubah Link</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pembimbing 2 -->
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="card-gradient p-6 text-white">
+              <div class="flex items-center space-x-4">
+                <img
+                  src="https://randomuser.me/api/portraits/men/32.jpg"
+                  alt="Pembimbing 2"
+                  class="w-16 h-16 rounded-full border-2 border-[#F5C45E]" />
+                <div>
+                  <h3 class="font-bold text-lg">Prof. Budi Santoso, M.Si.</h3>
+                  <p class="text-sm opacity-80">Ahli Karir</p>
+                </div>
+              </div>
+            </div>
+            <div class="p-6">
+              <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1"
+                  >Link GMeet</label
+                >
+                <input
+                  type="text"
+                  id="link-pembimbing2"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  placeholder="https://meet.google.com/xxx-yyyy-zzz" />
+              </div>
+              <div class="flex space-x-2">
+                <button
+                  class="btn-primary py-2 px-4 rounded-md font-medium w-full save-link"
+                  data-pembimbing="2">
+                  <i class="fas fa-save mr-2"></i>
+                  <span class="save-text">Simpan Link</span>
+                  <span class="edit-text hidden">Ubah Link</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pembimbing 3 -->
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="card-gradient p-6 text-white">
+              <div class="flex items-center space-x-4">
+                <img
+                  src="https://randomuser.me/api/portraits/women/44.jpg"
+                  alt="Pembimbing 3"
+                  class="w-16 h-16 rounded-full border-2 border-[#F5C45E]" />
+                <div>
+                  <h3 class="font-bold text-lg">Dra. Ani Rahayu, M.Kom.</h3>
+                  <p class="text-sm opacity-80">Konselor Akademik</p>
+                </div>
+              </div>
+            </div>
+            <div class="p-6">
+              <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1"
+                  >Link GMeet</label
+                >
+                <input
+                  type="text"
+                  id="link-pembimbing3"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  placeholder="https://meet.google.com/xxx-yyyy-zzz" />
+              </div>
+              <div class="flex space-x-2">
+                <button
+                  class="btn-primary py-2 px-4 rounded-md font-medium w-full save-link"
+                  data-pembimbing="3">
+                  <i class="fas fa-save mr-2"></i>
+                  <span class="save-text">Simpan Link</span>
+                  <span class="edit-text hidden">Ubah Link</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Tambah Jadwal -->
+      <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+        <h2 class="text-2xl font-semibold text-[#102E50] mb-4">
+          Tambah Jadwal Konseling
+        </h2>
+        <form id="jadwalForm">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"
+                >Pembimbing</label
+              >
+              <select
+                id="pembimbing"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md"
+                required>
+                <option value="">Pilih Pembimbing</option>
+                <option value="1">Dr. Sarah Wijaya, M.Psi.</option>
+                <option value="2">Prof. Budi Santoso, M.Si.</option>
+                <option value="3">Dra. Ani Rahayu, M.Kom.</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"
+                >Tanggal</label
+              >
+              <input
+                type="date"
+                id="tanggal"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md"
+                required />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"
+                >Waktu</label
+              >
+              <input
+                type="time"
+                id="waktu"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md"
+                required />
+            </div>
+            <div class="md:col-span-3">
+              <label class="block text-sm font-medium text-gray-700 mb-1"
+                >Keterangan (Opsional)</label
+              >
+              <input
+                type="text"
+                id="keterangan"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md"
+                placeholder="Misal: Konseling karir, minat bakat, dll." />
+            </div>
+            <div class="md:col-span-3">
+              <button
+                type="submit"
+                class="btn-primary py-2 px-6 rounded-md font-medium">
+                <i class="fas fa-plus-circle mr-2"></i>Tambah Jadwal
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Daftar Jadwal -->
+      <div class="bg-white rounded-xl shadow-lg p-6">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-semibold text-[#102E50]">
+            Daftar Jadwal Konseling
+          </h2>
+          <div class="relative">
+            <select
+              id="filterPembimbing"
+              class="px-4 py-2 border border-gray-300 rounded-md">
+              <option value="all">Semua Pembimbing</option>
+              <option value="1">Dr. Sarah Wijaya</option>
+              <option value="2">Prof. Budi Santoso</option>
+              <option value="3">Dra. Ani Rahayu</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  No
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Pembimbing
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Tanggal & Waktu
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Keterangan
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Status
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Link GMeet
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Aksi
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              id="jadwalTableBody"
+              class="bg-white divide-y divide-gray-200">
+              <!-- Data jadwal akan dimuat di sini -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <!-- Modal Edit -->
+    <div
+      id="editModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+      <div class="bg-white rounded-lg p-6 w-full max-w-md">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold text-[#102E50]">Edit Jadwal</h3>
+          <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <form id="editForm">
+          <input type="hidden" id="editId" />
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"
+                >Pembimbing</label
+              >
+              <select
+                id="editPembimbing"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md"
+                required>
+                <option value="1">Dr. Sarah Wijaya, M.Psi.</option>
+                <option value="2">Prof. Budi Santoso, M.Si.</option>
+                <option value="3">Dra. Ani Rahayu, M.Kom.</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"
+                >Tanggal</label
+              >
+              <input
+                type="date"
+                id="editTanggal"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md"
+                required />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"
+                >Waktu</label
+              >
+              <input
+                type="time"
+                id="editWaktu"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md"
+                required />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"
+                >Keterangan</label
+              >
+              <input
+                type="text"
+                id="editKeterangan"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md" />
+            </div>
+          </div>
+          <div class="mt-6 flex justify-end space-x-3">
+            <button
+              type="button"
+              id="cancelEdit"
+              class="btn-secondary py-2 px-4 rounded-md font-medium">
+              Batal
+            </button>
+            <button
+              type="submit"
+              class="btn-primary py-2 px-4 rounded-md font-medium">
+              Simpan Perubahan
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+     <!-- Footer -->
+    <footer class="bg-[#102E50]/90 text-white py-4 shadow-inner">
+      <div class="max-w-6xl mx-auto px-4">
+        <div
+          class="flex flex-col md:flex-row justify-between items-center gap-3 text-sm">
+          <!-- Kiri: Info Kampus -->
+          <div class="text-center md:text-left">
+            <h4 class="font-semibold">Universitas Bhayangkara Jakarta Raya</h4>
+            <p class="text-white/70 text-xs">
+              Jl. Raya Bekasi No.KM.18, Jakarta Timur, Indonesia
+            </p>
+          </div>
+
+          <!-- Kanan: Hak Cipta -->
+          <div class="text-center md:text-right text-xs text-white/60">
+            © 2023 Universitas Bhayangkara Jakarta Raya<br class="md:hidden" />
+            Hak cipta dilindungi.
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Data awal
+      let jadwalKonseling =
+        JSON.parse(localStorage.getItem("jadwalKonseling")) || [];
+      let gmeetLinks = JSON.parse(localStorage.getItem("gmeetLinks")) || {
+        1: "",
+        2: "",
+        3: "",
+      };
+
+      // Pembimbing data
+      const pembimbingData = {
+        1: {
+          nama: "Dr. Sarah Wijaya, M.Psi.",
+          foto: "https://randomuser.me/api/portraits/women/65.jpg",
+          spesialisasi: "Psikolog Klinis",
+        },
+        2: {
+          nama: "Prof. Budi Santoso, M.Si.",
+          foto: "https://randomuser.me/api/portraits/men/32.jpg",
+          spesialisasi: "Ahli Karir",
+        },
+        3: {
+          nama: "Dra. Ani Rahayu, M.Kom.",
+          foto: "https://randomuser.me/api/portraits/women/44.jpg",
+          spesialisasi: "Konselor Akademik",
+        },
+      };
+
+      // Inisialisasi halaman
+      document.addEventListener("DOMContentLoaded", () => {
+        // Load GMeet links
+        loadGMeetLinks();
+
+        // Load jadwal
+        loadJadwal();
+
+        // Event listeners
+        document
+          .getElementById("jadwalForm")
+          .addEventListener("submit", tambahJadwal);
+        document
+          .getElementById("filterPembimbing")
+          .addEventListener("change", filterJadwal);
+        document.querySelectorAll(".save-link").forEach((btn) => {
+          btn.addEventListener("click", saveGMeetLink);
+        });
+
+        // Logout
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+          localStorage.removeItem("adminLoggedIn");
+          window.location.href = "login.html";
+        });
+      });
+
+      // Fungsi untuk load GMeet links
+      function loadGMeetLinks() {
+        for (let i = 1; i <= 3; i++) {
+          const linkInput = document.getElementById(`link-pembimbing${i}`);
+          linkInput.value = gmeetLinks[i] || "";
+
+          // Update tombol berdasarkan apakah link sudah ada
+          const saveBtn = document.querySelector(
+            `.save-link[data-pembimbing="${i}"]`
+          );
+          updateButtonState(saveBtn, gmeetLinks[i]);
+        }
+      }
+
+      // Fungsi untuk update state tombol
+      function updateButtonState(button, hasLink) {
+        if (hasLink) {
+          button.querySelector(".save-text").classList.add("hidden");
+          button.querySelector(".edit-text").classList.remove("hidden");
+          button.classList.remove("btn-primary");
+          button.classList.add("btn-edit");
+        } else {
+          button.querySelector(".save-text").classList.remove("hidden");
+          button.querySelector(".edit-text").classList.add("hidden");
+          button.classList.add("btn-primary");
+          button.classList.remove("btn-edit");
+        }
+      }
+
+      // Fungsi untuk save GMeet link
+      function saveGMeetLink(e) {
+        const btn = e.target.closest(".save-link");
+        const pembimbing = btn.dataset.pembimbing;
+        const linkInput = document.getElementById(
+          `link-pembimbing${pembimbing}`
+        );
+        const link = linkInput.value.trim();
+
+        // Jika link kosong dan mencoba menyimpan, kembalikan ke state simpan
+        if (
+          !link &&
+          btn.querySelector(".edit-text").classList.contains("hidden")
+        ) {
+          alert("Link tidak boleh kosong!");
+          return;
+        }
+
+        gmeetLinks[pembimbing] = link;
+        localStorage.setItem("gmeetLinks", JSON.stringify(gmeetLinks));
+
+        // Update state tombol
+        updateButtonState(btn, link);
+
+        // Update link di tabel jika ada
+        loadJadwal();
+
+        if (link) {
+          alert(`Link GMeet untuk Pembimbing ${pembimbing} berhasil disimpan!`);
+        } else {
+          alert(`Link GMeet untuk Pembimbing ${pembimbing} berhasil dihapus!`);
+        }
+      }
+
+      // Fungsi untuk menambah jadwal
+      function tambahJadwal(e) {
+        e.preventDefault();
+
+        const pembimbing = document.getElementById("pembimbing").value;
+        const tanggal = document.getElementById("tanggal").value;
+        const waktu = document.getElementById("waktu").value;
+        const keterangan = document.getElementById("keterangan").value;
+
+        if (!pembimbing || !tanggal || !waktu) {
+          alert("Harap lengkapi semua field yang wajib diisi!");
+          return;
+        }
+
+        const newJadwal = {
+          id: Date.now(),
+          pembimbing: parseInt(pembimbing),
+          tanggal,
+          waktu,
+          keterangan: keterangan || "",
+          status: "Belum dimulai",
+        };
+
+        jadwalKonseling.push(newJadwal);
+        localStorage.setItem(
+          "jadwalKonseling",
+          JSON.stringify(jadwalKonseling)
+        );
+
+        // Reset form
+        document.getElementById("jadwalForm").reset();
+
+        // Reload tabel
+        loadJadwal();
+
+        alert("Jadwal berhasil ditambahkan!");
+      }
+
+      // Fungsi untuk load jadwal
+      function loadJadwal(filter = "all") {
+        const tbody = document.getElementById("jadwalTableBody");
+        tbody.innerHTML = "";
+
+        let filteredJadwal = jadwalKonseling;
+        if (filter !== "all") {
+          filteredJadwal = jadwalKonseling.filter(
+            (j) => j.pembimbing === parseInt(filter)
+          );
+        }
+
+        // Urutkan berdasarkan tanggal dan waktu terdekat
+        filteredJadwal.sort((a, b) => {
+          const dateA = new Date(`${a.tanggal}T${a.waktu}`);
+          const dateB = new Date(`${b.tanggal}T${b.waktu}`);
+          return dateA - dateB;
+        });
+
+        filteredJadwal.forEach((jadwal, index) => {
+          const pembimbing = pembimbingData[jadwal.pembimbing];
+          const dateTime = new Date(`${jadwal.tanggal}T${jadwal.waktu}`);
+          const now = new Date();
+
+          // Update status
+          if (now > dateTime) {
+            jadwal.status = "Selesai";
+          } else if (now >= new Date(dateTime.getTime() - 30 * 60000)) {
+            // 30 menit sebelum
+            jadwal.status = "Sedang berlangsung";
+          } else {
+            jadwal.status = "Belum dimulai";
+          }
+
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${
+              index + 1
+            }</td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 h-10 w-10">
+                  <img class="h-10 w-10 rounded-full" src="${
+                    pembimbing.foto
+                  }" alt="${pembimbing.nama}">
+                </div>
+                <div class="ml-4">
+                  <div class="text-sm font-medium text-gray-900">${
+                    pembimbing.nama
+                  }</div>
+                  <div class="text-sm text-gray-500">${
+                    pembimbing.spesialisasi
+                  }</div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-900">${formatDate(
+                jadwal.tanggal
+              )}</div>
+              <div class="text-sm text-gray-500">${jadwal.waktu}</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${
+              jadwal.keterangan || "-"
+            }</td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                ${
+                  jadwal.status === "Sedang berlangsung"
+                    ? "bg-green-100 text-green-800"
+                    : jadwal.status === "Selesai"
+                    ? "bg-gray-100 text-gray-800"
+                    : "bg-blue-100 text-blue-800"
+                }">
+                ${jadwal.status}
+              </span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              ${
+                gmeetLinks[jadwal.pembimbing] &&
+                jadwal.status === "Sedang berlangsung"
+                  ? `<a href="${
+                      gmeetLinks[jadwal.pembimbing]
+                    }" target="_blank" class="text-blue-600 hover:text-blue-800">Join Meeting</a>`
+                  : gmeetLinks[jadwal.pembimbing]
+                  ? `<span class="text-gray-400">Link tersedia</span>`
+                  : '<span class="text-red-400">Belum ada link</span>'
+              }
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+              <button class="text-indigo-600 hover:text-indigo-900 mr-3 edit-btn" data-id="${
+                jadwal.id
+              }">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="text-red-600 hover:text-red-900 delete-btn" data-id="${
+                jadwal.id
+              }">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+          `;
+
+          tbody.appendChild(row);
+        });
+
+        // Update localStorage dengan status terbaru
+        localStorage.setItem(
+          "jadwalKonseling",
+          JSON.stringify(jadwalKonseling)
+        );
+
+        // Tambahkan event listener untuk tombol edit dan delete
+        document.querySelectorAll(".edit-btn").forEach((btn) => {
+          btn.addEventListener("click", openEditModal);
+        });
+
+        document.querySelectorAll(".delete-btn").forEach((btn) => {
+          btn.addEventListener("click", deleteJadwal);
+        });
+      }
+
+      // Fungsi untuk filter jadwal
+      function filterJadwal() {
+        const filter = document.getElementById("filterPembimbing").value;
+        loadJadwal(filter);
+      }
+
+      // Fungsi untuk format tanggal
+      function formatDate(dateString) {
+        const options = {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        };
+        return new Date(dateString).toLocaleDateString("id-ID", options);
+      }
+
+      // Fungsi untuk membuka modal edit
+      function openEditModal(e) {
+        const id = parseInt(e.target.closest(".edit-btn").dataset.id);
+        const jadwal = jadwalKonseling.find((j) => j.id === id);
+
+        if (jadwal) {
+          document.getElementById("editId").value = jadwal.id;
+          document.getElementById("editPembimbing").value = jadwal.pembimbing;
+          document.getElementById("editTanggal").value = jadwal.tanggal;
+          document.getElementById("editWaktu").value = jadwal.waktu;
+          document.getElementById("editKeterangan").value = jadwal.keterangan;
+
+          document.getElementById("editModal").classList.remove("hidden");
+
+          // Event listener untuk form edit
+          document
+            .getElementById("editForm")
+            .addEventListener("submit", updateJadwal);
+          document
+            .getElementById("cancelEdit")
+            .addEventListener("click", closeEditModal);
+          document
+            .getElementById("closeModal")
+            .addEventListener("click", closeEditModal);
+        }
+      }
+
+      // Fungsi untuk menutup modal edit
+      function closeEditModal() {
+        document.getElementById("editModal").classList.add("hidden");
+      }
+
+      // Fungsi untuk update jadwal
+      function updateJadwal(e) {
+        e.preventDefault();
+
+        const id = parseInt(document.getElementById("editId").value);
+        const pembimbing = parseInt(
+          document.getElementById("editPembimbing").value
+        );
+        const tanggal = document.getElementById("editTanggal").value;
+        const waktu = document.getElementById("editWaktu").value;
+        const keterangan = document.getElementById("editKeterangan").value;
+
+        const index = jadwalKonseling.findIndex((j) => j.id === id);
+
+        if (index !== -1) {
+          jadwalKonseling[index] = {
+            ...jadwalKonseling[index],
+            pembimbing,
+            tanggal,
+            waktu,
+            keterangan,
+          };
+
+          localStorage.setItem(
+            "jadwalKonseling",
+            JSON.stringify(jadwalKonseling)
+          );
+          loadJadwal(document.getElementById("filterPembimbing").value);
+          closeEditModal();
+          alert("Jadwal berhasil diperbarui!");
+        }
+      }
+
+      // Fungsi untuk menghapus jadwal
+      function deleteJadwal(e) {
+        if (confirm("Apakah Anda yakin ingin menghapus jadwal ini?")) {
+          const id = parseInt(e.target.closest(".delete-btn").dataset.id);
+          jadwalKonseling = jadwalKonseling.filter((j) => j.id !== id);
+
+          localStorage.setItem(
+            "jadwalKonseling",
+            JSON.stringify(jadwalKonseling)
+          );
+          loadJadwal(document.getElementById("filterPembimbing").value);
+          alert("Jadwal berhasil dihapus!");
+        }
+      }
+    </script>
+  </body>
+</html>

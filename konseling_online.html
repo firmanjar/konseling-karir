@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Konseling Online - Mahasiswa</title>
+    <link rel="icon" type="image/png" href="img/Logo_ubhara.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+      body {
+        background-color: #f3f4f6;
+      }
+      .card-gradient {
+        background: linear-gradient(135deg, #102e50 0%, #1e3a8a 100%);
+      }
+      .text-accent {
+        color: #f5c45e;
+      }
+      .btn-primary {
+        background-color: #e78b48;
+      }
+      .btn-primary:hover {
+        background-color: #be3d2a;
+      }
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-[#102E50] text-white shadow-lg">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-between items-center py-4">
+          <div class="flex items-center space-x-4">
+            <img src="img/Logo_ubhara.png" alt="Logo Ubhara" class="h-10" />
+            <span class="font-semibold text-xl">Konseling Online</span>
+          </div>
+          <div>
+            <button
+              id="logoutBtn"
+              class="btn-primary py-2 px-4 rounded-md font-medium">
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-8">
+      <h1 class="text-3xl font-bold text-[#102E50] mb-8">
+        Jadwal Konseling Online
+      </h1>
+
+      <!-- Filter Jadwal -->
+      <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+        <div
+          class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div class="w-full md:w-auto">
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Filter Pembimbing</label
+            >
+            <select
+              id="filterPembimbing"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md">
+              <option value="all">Semua Pembimbing</option>
+              <option value="1">Dr. Sarah Wijaya</option>
+              <option value="2">Prof. Budi Santoso</option>
+              <option value="3">Dra. Ani Rahayu</option>
+            </select>
+          </div>
+          <div class="w-full md:w-auto">
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Filter Status</label
+            >
+            <select
+              id="filterStatus"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md">
+              <option value="all">Semua Status</option>
+              <option value="Belum dimulai">Belum Dimulai</option>
+              <option value="Sedang berlangsung">Sedang Berlangsung</option>
+              <option value="Selesai">Selesai</option>
+            </select>
+          </div>
+          <div class="w-full md:w-auto">
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Filter Tanggal</label
+            >
+            <input
+              type="date"
+              id="filterTanggal"
+              class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Daftar Jadwal -->
+      <div class="bg-white rounded-xl shadow-lg p-6">
+        <h2 class="text-2xl font-semibold text-[#102E50] mb-6">
+          Daftar Jadwal Tersedia
+        </h2>
+
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  No
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Pembimbing
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Tanggal & Waktu
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Keterangan
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Status
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Aksi
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              id="jadwalTableBody"
+              class="bg-white divide-y divide-gray-200">
+              <!-- Data jadwal akan dimuat di sini secara dinamis -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <!-- Modal Konfirmasi -->
+    <div
+      id="confirmModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+      <div class="bg-white rounded-lg p-6 w-full max-w-md">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold text-[#102E50]" id="modalTitle">
+            Konfirmasi Konseling
+          </h3>
+          <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div id="modalContent">
+          <p id="modalMessage">Anda akan mengikuti sesi konseling ini?</p>
+          <div class="mt-4">
+            <p class="font-medium">Detail Konseling:</p>
+            <div id="jadwalDetails" class="mt-2 space-y-1 text-sm"></div>
+          </div>
+          <div id="meetLinkContainer" class="mt-4 hidden">
+            <p class="font-medium">Link Google Meet:</p>
+            <a
+              id="meetLink"
+              href="#"
+              target="_blank"
+              class="text-blue-600 hover:text-blue-800 break-all"></a>
+            <p class="text-sm text-gray-500 mt-1">
+              Link akan aktif saat sesi dimulai.
+            </p>
+          </div>
+        </div>
+        <div class="mt-6 flex justify-end space-x-3">
+          <button
+            type="button"
+            id="cancelConfirm"
+            class="px-4 py-2 border border-gray-300 rounded-md font-medium">
+            Batal
+          </button>
+          <button
+            type="button"
+            id="confirmAction"
+            class="btn-primary py-2 px-4 rounded-md font-medium">
+            Konfirmasi
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Data pembimbing
+      const pembimbingData = {
+        1: {
+          nama: "Dr. Sarah Wijaya, M.Psi.",
+          foto: "https://randomuser.me/api/portraits/women/65.jpg",
+          spesialisasi: "Psikolog Klinis",
+        },
+        2: {
+          nama: "Prof. Budi Santoso, M.Si.",
+          foto: "https://randomuser.me/api/portraits/men/32.jpg",
+          spesialisasi: "Ahli Karir",
+        },
+        3: {
+          nama: "Dra. Ani Rahayu, M.Kom.",
+          foto: "https://randomuser.me/api/portraits/women/44.jpg",
+          spesialisasi: "Konselor Akademik",
+        },
+      };
+
+      // Inisialisasi halaman
+      document.addEventListener("DOMContentLoaded", () => {
+        // Load jadwal pertama kali
+        loadJadwal();
+
+        // Event listeners untuk filter
+        document
+          .getElementById("filterPembimbing")
+          .addEventListener("change", filterJadwal);
+        document
+          .getElementById("filterStatus")
+          .addEventListener("change", filterJadwal);
+        document
+          .getElementById("filterTanggal")
+          .addEventListener("change", filterJadwal);
+
+        // Logout
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+          localStorage.removeItem("mahasiswaLoggedIn");
+          window.location.href = "login.html";
+        });
+
+        // Modal event listeners
+        document
+          .getElementById("closeModal")
+          .addEventListener("click", closeModal);
+        document
+          .getElementById("cancelConfirm")
+          .addEventListener("click", closeModal);
+
+        // Event delegation untuk tombol join/detail
+        document
+          .getElementById("jadwalTableBody")
+          .addEventListener("click", (e) => {
+            if (e.target.closest(".join-btn")) {
+              showJadwalDetails(e);
+            }
+          });
+
+        // Periksa jadwal setiap menit untuk update status
+        setInterval(loadJadwal, 60000);
+      });
+
+      // Fungsi untuk load jadwal
+      function loadJadwal() {
+        const jadwalKonseling =
+          JSON.parse(localStorage.getItem("jadwalKonseling")) || [];
+        renderJadwal(jadwalKonseling);
+      }
+
+      // Fungsi untuk render jadwal ke tabel
+      function renderJadwal(jadwalKonseling) {
+        const gmeetLinks = JSON.parse(localStorage.getItem("gmeetLinks")) || {
+          1: "",
+          2: "",
+          3: "",
+        };
+
+        const tbody = document.getElementById("jadwalTableBody");
+        tbody.innerHTML = "";
+
+        // Jika tidak ada jadwal
+        if (jadwalKonseling.length === 0) {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td colspan="6" class="px-6 py-4 text-center text-gray-500">
+              Tidak ada jadwal konseling tersedia
+            </td>
+          `;
+          tbody.appendChild(row);
+          return;
+        }
+
+        // Urutkan berdasarkan tanggal dan waktu terdekat
+        jadwalKonseling.sort((a, b) => {
+          const dateA = new Date(`${a.tanggal}T${a.waktu}`);
+          const dateB = new Date(`${b.tanggal}T${b.waktu}`);
+          return dateA - dateB;
+        });
+
+        jadwalKonseling.forEach((jadwal, index) => {
+          const pembimbing = pembimbingData[jadwal.pembimbing];
+          const dateTime = new Date(`${jadwal.tanggal}T${jadwal.waktu}`);
+          const now = new Date();
+
+          // Update status
+          let status = jadwal.status;
+          if (now > dateTime) {
+            status = "Selesai";
+          } else if (now >= new Date(dateTime.getTime() - 30 * 60000)) {
+            // 30 menit sebelum
+            status = "Sedang berlangsung";
+          } else {
+            status = "Belum dimulai";
+          }
+
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${
+              index + 1
+            }</td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 h-10 w-10">
+                  <img class="h-10 w-10 rounded-full" src="${
+                    pembimbing.foto
+                  }" alt="${pembimbing.nama}">
+                </div>
+                <div class="ml-4">
+                  <div class="text-sm font-medium text-gray-900">${
+                    pembimbing.nama
+                  }</div>
+                  <div class="text-sm text-gray-500">${
+                    pembimbing.spesialisasi
+                  }</div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-900">${formatDate(
+                jadwal.tanggal
+              )}</div>
+              <div class="text-sm text-gray-500">${jadwal.waktu}</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${
+              jadwal.keterangan || "-"
+            }</td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                ${
+                  status === "Sedang berlangsung"
+                    ? "bg-green-100 text-green-800"
+                    : status === "Selesai"
+                    ? "bg-gray-100 text-gray-800"
+                    : "bg-blue-100 text-blue-800"
+                }">
+                ${status}
+              </span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+              <button class="btn-primary py-1 px-3 rounded-md font-medium join-btn" data-id="${
+                jadwal.id
+              }">
+                <i class="fas fa-video mr-1"></i> ${
+                  status === "Sedang berlangsung" ? "Join" : "Detail"
+                }
+              </button>
+            </td>
+          `;
+
+          tbody.appendChild(row);
+        });
+      }
+
+      // Fungsi untuk filter jadwal
+      function filterJadwal() {
+        const jadwalKonseling =
+          JSON.parse(localStorage.getItem("jadwalKonseling")) || [];
+        const filterPembimbing =
+          document.getElementById("filterPembimbing").value;
+        const filterStatus = document.getElementById("filterStatus").value;
+        const filterTanggal = document.getElementById("filterTanggal").value;
+
+        let filteredJadwal = jadwalKonseling;
+
+        // Filter pembimbing
+        if (filterPembimbing !== "all") {
+          filteredJadwal = filteredJadwal.filter(
+            (j) => j.pembimbing === parseInt(filterPembimbing)
+          );
+        }
+
+        // Filter status
+        if (filterStatus !== "all") {
+          filteredJadwal = filteredJadwal.filter((j) => {
+            const dateTime = new Date(`${j.tanggal}T${j.waktu}`);
+            const now = new Date();
+
+            let status = j.status;
+            if (now > dateTime) {
+              status = "Selesai";
+            } else if (now >= new Date(dateTime.getTime() - 30 * 60000)) {
+              status = "Sedang berlangsung";
+            } else {
+              status = "Belum dimulai";
+            }
+
+            return status === filterStatus;
+          });
+        }
+
+        // Filter tanggal
+        if (filterTanggal) {
+          filteredJadwal = filteredJadwal.filter(
+            (j) => j.tanggal === filterTanggal
+          );
+        }
+
+        // Render jadwal yang sudah difilter
+        renderJadwal(filteredJadwal);
+      }
+
+      // Fungsi untuk menampilkan detail jadwal
+      function showJadwalDetails(e) {
+        const jadwalKonseling =
+          JSON.parse(localStorage.getItem("jadwalKonseling")) || [];
+        const gmeetLinks = JSON.parse(localStorage.getItem("gmeetLinks")) || {
+          1: "",
+          2: "",
+          3: "",
+        };
+
+        const id = parseInt(e.target.closest(".join-btn").dataset.id);
+        const jadwal = jadwalKonseling.find((j) => j.id === id);
+
+        if (jadwal) {
+          const pembimbing = pembimbingData[jadwal.pembimbing];
+          const dateTime = new Date(`${jadwal.tanggal}T${jadwal.waktu}`);
+          const now = new Date();
+
+          let status = jadwal.status;
+          if (now > dateTime) {
+            status = "Selesai";
+          } else if (now >= new Date(dateTime.getTime() - 30 * 60000)) {
+            status = "Sedang berlangsung";
+          } else {
+            status = "Belum dimulai";
+          }
+
+          // Update modal content
+          document.getElementById("modalTitle").textContent =
+            status === "Sedang berlangsung"
+              ? "Join Konseling"
+              : "Detail Konseling";
+          document.getElementById("modalMessage").textContent =
+            status === "Sedang berlangsung"
+              ? "Anda akan mengikuti sesi konseling ini?"
+              : "Detail jadwal konseling:";
+
+          document.getElementById("jadwalDetails").innerHTML = `
+            <p><strong>Pembimbing:</strong> ${pembimbing.nama}</p>
+            <p><strong>Tanggal:</strong> ${formatDate(jadwal.tanggal)}</p>
+            <p><strong>Waktu:</strong> ${jadwal.waktu}</p>
+            <p><strong>Keterangan:</strong> ${jadwal.keterangan || "-"}</p>
+            <p><strong>Status:</strong> ${status}</p>
+          `;
+
+          // Tampilkan link meet jika sedang berlangsung dan link tersedia
+          const meetLinkContainer =
+            document.getElementById("meetLinkContainer");
+          const meetLink = document.getElementById("meetLink");
+
+          if (
+            status === "Sedang berlangsung" &&
+            gmeetLinks[jadwal.pembimbing]
+          ) {
+            meetLink.href = gmeetLinks[jadwal.pembimbing];
+            meetLink.textContent = gmeetLinks[jadwal.pembimbing];
+            meetLinkContainer.classList.remove("hidden");
+
+            // Update tombol konfirmasi untuk membuka link
+            document.getElementById("confirmAction").textContent =
+              "Join Meeting";
+            document.getElementById("confirmAction").onclick = () => {
+              window.open(gmeetLinks[jadwal.pembimbing], "_blank");
+              closeModal();
+            };
+          } else {
+            meetLinkContainer.classList.add("hidden");
+
+            // Update tombol konfirmasi untuk menutup modal
+            document.getElementById("confirmAction").textContent = "Tutup";
+            document.getElementById("confirmAction").onclick = closeModal;
+          }
+
+          // Tampilkan modal
+          document.getElementById("confirmModal").classList.remove("hidden");
+        }
+      }
+
+      // Fungsi untuk menutup modal
+      function closeModal() {
+        document.getElementById("confirmModal").classList.add("hidden");
+      }
+
+      // Fungsi untuk format tanggal
+      function formatDate(dateString) {
+        const options = {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        };
+        return new Date(dateString).toLocaleDateString("id-ID", options);
+      }
+    </script>
+  </body>
+</html>
